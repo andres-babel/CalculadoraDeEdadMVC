@@ -1,0 +1,14 @@
+C:\Users\andres.salazar\source\repos\CalculadoraDeEdadMVC\bin\Debug\net6.0\CalculadoraDeEdadMVC.exe
+C:\Users\andres.salazar\source\repos\CalculadoraDeEdadMVC\bin\Debug\net6.0\CalculadoraDeEdadMVC.deps.json
+C:\Users\andres.salazar\source\repos\CalculadoraDeEdadMVC\bin\Debug\net6.0\CalculadoraDeEdadMVC.runtimeconfig.json
+C:\Users\andres.salazar\source\repos\CalculadoraDeEdadMVC\bin\Debug\net6.0\CalculadoraDeEdadMVC.dll
+C:\Users\andres.salazar\source\repos\CalculadoraDeEdadMVC\bin\Debug\net6.0\CalculadoraDeEdadMVC.pdb
+C:\Users\andres.salazar\source\repos\CalculadoraDeEdadMVC\obj\Debug\net6.0\CalculadoraDeEdadMVC.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\andres.salazar\source\repos\CalculadoraDeEdadMVC\obj\Debug\net6.0\CalculadoraDeEdadMVC.AssemblyInfoInputs.cache
+C:\Users\andres.salazar\source\repos\CalculadoraDeEdadMVC\obj\Debug\net6.0\CalculadoraDeEdadMVC.AssemblyInfo.cs
+C:\Users\andres.salazar\source\repos\CalculadoraDeEdadMVC\obj\Debug\net6.0\CalculadoraDeEdadMVC.csproj.CoreCompileInputs.cache
+C:\Users\andres.salazar\source\repos\CalculadoraDeEdadMVC\obj\Debug\net6.0\CalculadoraDeEdadMVC.dll
+C:\Users\andres.salazar\source\repos\CalculadoraDeEdadMVC\obj\Debug\net6.0\refint\CalculadoraDeEdadMVC.dll
+C:\Users\andres.salazar\source\repos\CalculadoraDeEdadMVC\obj\Debug\net6.0\CalculadoraDeEdadMVC.pdb
+C:\Users\andres.salazar\source\repos\CalculadoraDeEdadMVC\obj\Debug\net6.0\CalculadoraDeEdadMVC.genruntimeconfig.cache
+C:\Users\andres.salazar\source\repos\CalculadoraDeEdadMVC\obj\Debug\net6.0\ref\CalculadoraDeEdadMVC.dll
