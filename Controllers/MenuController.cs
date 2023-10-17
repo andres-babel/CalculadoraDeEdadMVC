@@ -12,7 +12,6 @@ namespace CalculadoraDeEdadMVC.Controllers
     {
         private List<UserModel> Users;
         private MenuView MenuView;
-
         public MenuController() 
         {
             Users = new List<UserModel>();
@@ -33,7 +32,11 @@ namespace CalculadoraDeEdadMVC.Controllers
                     {
                         case 0: exec = false; break;
                         case 1: AddUser(); break;
-                        case 2: ShowUsersAge(); break;   
+                        case 2: ChangeUserName(); break;
+                        case 3: ShowUsersAge(); break;   
+                        case 4: new AgeController(Users).ManageMenu(); break;
+                        case 5: new AgeInPlanetsController(Users).ManageMenu(); break;
+                        case 6: new FutureAgeController(Users).ManageMenu(); break;
                     }
                 }
             }
@@ -45,6 +48,13 @@ namespace CalculadoraDeEdadMVC.Controllers
             DateTime birthDate = MenuView.GetUserBirthDate();
             Users.Add(new UserModel(username, birthDate));
         }
+
+        private void ChangeUserName()
+        {
+            Users = MenuView.ChangeUser(Users);
+            
+        }
+
 
         private void ShowUsersAge()
         {
