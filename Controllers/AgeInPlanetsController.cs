@@ -1,4 +1,5 @@
 ﻿using CalculadoraDeEdadMVC.Models;
+using CalculadoraDeEdadMVC.Service;
 using CalculadoraDeEdadMVC.Views;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,12 @@ namespace CalculadoraDeEdadMVC.Controllers
     {
         private List<UserModel> Users;
         private AgeInPlanetsMenuView MenuView;
-        public AgeInPlanetsController(List<UserModel> users)
+        private AgeCalculatorService Service;
+        public AgeInPlanetsController(List<UserModel> users, AgeCalculatorService Service)
         {
             Users = users;
             MenuView = new AgeInPlanetsMenuView();
+            this.Service = Service;
         }
 
 
@@ -26,22 +29,13 @@ namespace CalculadoraDeEdadMVC.Controllers
 
             while (exec)
             {
-                MenuView.DisplayMenu();
+                MenuView.DisplayMenu(Service.getPlanetsConfiguration());
                 if (int.TryParse(Console.ReadLine(), out choice))
                 {
                     switch (choice)
                     {
                         case 0: exec = false; break;
-                        case 1: 
-                        case 2: 
-                        case 3: 
-                        case 4: 
-                        case 5:
-                        case 6:
-                        case 7:
-                        case 8:
-                        case 9: ShowUsersAgeInPlanet(choice-1); break;
-
+                        default: ShowUsersAgeInPlanet(choice); break;
                     }
                 }
             }
@@ -50,12 +44,12 @@ namespace CalculadoraDeEdadMVC.Controllers
 
         private void ShowUsersAgeInPlanet(int choice)
         {
-            string chosenPlanet = PlanetsModel.Planets[choice];
 
             foreach (UserModel user in Users)
             {
-                PlanetsModel planetAge = user.CalculateAgeInOtherPlanets();
-                MenuView.ShowAgeInPlanet(user.Name, planetAge.getAgeInPlanet(chosenPlanet).ToString(), chosenPlanet);
+                double planetAge = Service.CalculateAgeInOtherPlanets(user.BirthDate, choice);
+                string chosenPlanet = Service.getPlanetChoice(choice);
+                MenuView.ShowAgeInPlanet(user.Name, planetAge.ToString(), chosenPlanet);
             }
         }
 

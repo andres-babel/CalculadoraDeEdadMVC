@@ -10,12 +10,13 @@ namespace CalculadoraDeEdadMVC.Views
     internal class AgeInPlanetsMenuView
     {
 
-        public void DisplayMenu()
+        public void DisplayMenu(List<PlanetConfiguration> planetsConfiguration)
         {
             Console.WriteLine("\nPlanet Menu Options: ");
-            for (int i = 0; i < PlanetsModel.Planets.Count; i++)
-                Console.WriteLine("{0}) Show Users Age in {1}",i+1, PlanetsModel.Planets[i]);
-            
+
+            foreach (PlanetConfiguration config in planetsConfiguration)
+                Console.WriteLine($"{config.Option}) Show Users Age in {config.Name}");
+
             Console.WriteLine("0) Exit\n");
             Console.Write("Choice: ");
         }

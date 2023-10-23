@@ -1,4 +1,5 @@
 ﻿using CalculadoraDeEdadMVC.Models;
+using CalculadoraDeEdadMVC.Service;
 using CalculadoraDeEdadMVC.Views;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace CalculadoraDeEdadMVC.Controllers
         private List<UserModel> Users;
         private FutureAgeMenuView MenuView;
         private DateTime FutureDate;
-        public FutureAgeController(List<UserModel> users) 
+        private AgeCalculatorService Service;
+        public FutureAgeController(List<UserModel> users, AgeCalculatorService Service) 
         {
             Users = users;
             MenuView = new FutureAgeMenuView();
+            this.Service = Service;
         }
 
         public void ManageMenu()
@@ -70,7 +73,7 @@ namespace CalculadoraDeEdadMVC.Controllers
         {
             foreach (UserModel user in Users)
             {
-                AgeModel age = user.CalculateFutureAge(FutureDate);
+                AgeModel age = Service.CalculateFutureAge(user.BirthDate,FutureDate);
                 MenuView.ShowUserFutureAge(user.Name, age.Years.ToString());
             }
         }

@@ -1,5 +1,7 @@
 ﻿using CalculadoraDeEdadMVC.Models;
+using CalculadoraDeEdadMVC.Service;
 using CalculadoraDeEdadMVC.Views;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +14,14 @@ namespace CalculadoraDeEdadMVC.Controllers
     {
         private List<UserModel> Users;
         private MenuView MenuView;
-        public MenuController() 
+        private List<PlanetConfiguration> PlanetsConfig;
+        private AgeCalculatorService Service;
+        public MenuController(IConfiguration config) 
         {
             Users = new List<UserModel>();
             MenuView = new MenuView();
+            PlanetsConfig = SetPlanets(config);
+            Service = new AgeCalculatorService(PlanetsConfig);
         }
 
         public void ManageMenu()
@@ -34,9 +40,9 @@ namespace CalculadoraDeEdadMVC.Controllers
                         case 1: AddUser(); break;
                         case 2: ChangeUserName(); break;
                         case 3: ShowUsersAge(); break;   
-                        case 4: new AgeController(Users).ManageMenu(); break;
-                        case 5: new AgeInPlanetsController(Users).ManageMenu(); break;
-                        case 6: new FutureAgeController(Users).ManageMenu(); break;
+                        case 4: new AgeController(Users,Service).ManageMenu(); break;
+                        case 5: new AgeInPlanetsController(Users, Service).ManageMenu(); break;
+                        case 6: new FutureAgeController(Users,Service).ManageMenu(); break;
                     }
                 }
             }
@@ -46,8 +52,29 @@ namespace CalculadoraDeEdadMVC.Controllers
         {
             string username = MenuView.GetUserName();
             DateTime birthDate = MenuView.GetUserBirthDate();
+
             Users.Add(new UserModel(username, birthDate));
         }
+
+        private List<PlanetConfiguration> SetPlanets(IConfiguration config)
+        {
+            List<PlanetConfiguration> planetConfigurations = new List<PlanetConfiguration>();
+
+            var planetsData = config.GetSection("Planets");
+
+            foreach (var item in planetsData.GetChildren())
+            {
+                var option = item["Number"];
+                var name = item["Name"];
+                var orbital = item["Orbit"];
+
+                if(!string.IsNullOrEmpty(option) && !string.IsNullOrEmpty(orbital) && !string.IsNullOrEmpty(name)) 
+                    planetConfigurations.Add(new PlanetConfiguration(int.Parse(option),name, double.Parse(orbital)));
+
+            }
+            return planetConfigurations;
+        }
+
 
         private void ChangeUserName()
         {
@@ -60,7 +87,7 @@ namespace CalculadoraDeEdadMVC.Controllers
         {
             foreach (UserModel user in Users)
             {
-                AgeModel age = user.CalculateAgeInYearsMonthsAndDays();
+                AgeModel age = Service.CalculateAgeInYearsMonthsAndDays(user.BirthDate);
                 MenuView.ShowUserAge(user.Name, age.Years.ToString(), age.Months.ToString(), age.Days.ToString());
             }
         }

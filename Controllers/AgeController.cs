@@ -1,4 +1,5 @@
 ﻿using CalculadoraDeEdadMVC.Models;
+using CalculadoraDeEdadMVC.Service;
 using CalculadoraDeEdadMVC.Views;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,14 @@ namespace CalculadoraDeEdadMVC.Controllers
     {
         private List<UserModel> Users;
         private AgeFormatsMenuView MenuView;
-       
-        public AgeController(List<UserModel> usersList)
+        private AgeCalculatorService Service;
+
+
+        public AgeController(List<UserModel> usersList, AgeCalculatorService Service)
         {
             Users = usersList;
             MenuView = new AgeFormatsMenuView();
+            this.Service = Service;
         }
 
 
@@ -49,7 +53,7 @@ namespace CalculadoraDeEdadMVC.Controllers
         {
             foreach (UserModel user in Users)
             {
-                AgeModel age = user.CalculateAgeInMonthsOrDays();
+                AgeModel age = Service.CalculateAgeInMonthsOrDays(user.BirthDate);
                 MenuView.showUsersAgeInMonths(user.Name, age.AgeInMonths.ToString());  
             }
         }
@@ -58,7 +62,7 @@ namespace CalculadoraDeEdadMVC.Controllers
         {
             foreach (UserModel user in Users)
             {
-                AgeModel age = user.CalculateAgeInMonthsOrDays();
+                AgeModel age = Service.CalculateAgeInMonthsOrDays(user.BirthDate);
                 MenuView.showUsersAgeInDays(user.Name, age.AgeInDays.ToString());  
             }
         }
@@ -67,7 +71,7 @@ namespace CalculadoraDeEdadMVC.Controllers
         {
             foreach (UserModel user in Users)
             {
-                AgeModel age = user.CalculateAgeInMonthsOrDays();
+                AgeModel age = Service.CalculateAgeInMonthsOrDays(user.BirthDate);
                 MenuView.showUsersAgeInMonthsOrDays(user.Name, age.AgeInMonths.ToString(), age.AgeInDays.ToString());  
             }
         }
@@ -76,7 +80,7 @@ namespace CalculadoraDeEdadMVC.Controllers
         {
             foreach (UserModel user in Users)
             {
-                AgeModel age = user.CalculateAgeInMonthsOrDays();
+                AgeModel age = Service.CalculateAgeInMonthsOrDays(user.BirthDate);
                 MenuView.showUsersAgeInYearsMonthsOrDays(user.Name, age.Years.ToString(),age.AgeInMonths.ToString(), age.AgeInDays.ToString());  
             }
         }
